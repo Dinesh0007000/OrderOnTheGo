@@ -50,81 +50,132 @@ All database schemas are defined in /server/schema.js according to the ER diagra
 Model: User
 
 Fields:
+
 username
+
 email
+
 password
+
 userType (customer / restaurantOwner / deliveryBoy)
+
 approval
-️
-2. Restaurant Schema
+
+2.Restaurant Schema
 Model: Restaurant
 
 Fields:
+
 ownerId (Ref: User)
+
 title
+
 address
+
 mainImg
+
 attributes
+
 menu (Array of FoodItem references)
 
 3.Admin Schema
 Model: Admin
 
 Fields:
+
 categories (Array)
+
 banners (Array)
+
 promotedRestaurants (Array of Restaurant references)
 
 4.Food Item Schema
 Model: FoodItem
 
 Fields:
+
 title
+
 desc
+
 image
+
 menuType
+
 category
+
 restaurantId (Ref: Restaurant)
+
 price
+
 discount
+
 rating
 
 5.Cart Schema
 Model: Cart
 
 Fields:
+
 userId (Ref: User)
+
 restaurantId (Ref: Restaurant)
+
 restaurantName
+
 foodItemId (Ref: FoodItem)
+
 quantity
+
 foodItemName
+
 foodItemImg
+
 price
+
 discount
 
 6.Order Schema
 Model: Order
 
 Fields:
+
 userId (Ref: User)
+
 name
+
 email
+
 mobile
+
 address
+
 pincode
+
 restaurantId (Ref: Restaurant)
+
 restaurantName
+
 foodItemId (Ref: FoodItem)
+
 foodItemName
+
 foodItemImg
+
 quantity
+
 price
+
 discount
+
 paymentMethod
+
 orderDate
+
 deliveryDate
+
 status
+
 
 ### Backend Developer Guide
 backend developer should import models from /server/schema.js like this:
