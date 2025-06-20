@@ -3,19 +3,18 @@
 Welcome to **OrderOnTheGo**, a full-stack food ordering platform connecting users with restaurants and their menus. This project is developed as a team collaboration.
 
 ---
-
-##  Project Structure
+## Project Structure
 
 /OrderOnTheGo
 │
-├── server/ # Backend & DB logic
-│ ├── index.js # MongoDB connection + server entry point
-│ ├── schema.js # All Mongoose models (User, Product, etc.)
+├── server/                  # Backend & DB logic
+│   ├── index.js             # MongoDB connection + server entry point
+│   ├── schema.js            # All Mongoose models (User, Product, etc.)
 │
-├── .env # MongoDB URI (kept secret)
-├── .gitignore # Ignores .env, node_modules, etc.
-├── package.json # Project dependencies
-└── README.md # This documentation
+├── .env                     # MongoDB URI (kept secret in this file)
+├── .gitignore               # Ignores .env, node_modules, etc.
+├── package.json             # Project dependencies
+└── README.md                # This documentation
 
 ##  Getting Started
 
@@ -34,7 +33,7 @@ cd OrderOnTheGo
 ### 2. Install Dependencies
 npm install
 ### 3. Create .env file in root folder:
-MONGO_URI=mongodb+srv://Dinesh:orderPass123@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+MONGO_URI=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 
 ### MongoDB Database Setup
 The MongoDB connection is handled inside /server/index.js using Mongoose.
