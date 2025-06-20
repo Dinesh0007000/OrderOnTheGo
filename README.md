@@ -25,6 +25,7 @@ Node.js (v18 or above)
 Git
 
 ### Setup Instructions (For All Team Members)
+```plaintext
 1.Clone the Repository
 git clone https://github.com/Dinesh0007000/OrderOnTheGo.git
 cd OrderOnTheGo
@@ -32,6 +33,7 @@ cd OrderOnTheGo
 npm install
 3. Create .env File in Root Folder:
 MONGO_URI=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+```
 
 ### MongoDB Database Setup
 The MongoDB connection is established inside /server/index.js using Mongoose.
@@ -39,6 +41,7 @@ The MongoDB connection is established inside /server/index.js using Mongoose.
 To verify the database connection:
 
 node server/index.js
+
 Expected Output:
 
 MongoDB Connected Successfully!
@@ -46,6 +49,7 @@ MongoDB Connected Successfully!
 ### Database Schema Overview
 All database schemas are defined in /server/schema.js according to the ER diagrams provided.
 
+```plaintext
 1.User Schema
 Model: User
 
@@ -79,6 +83,7 @@ attributes
 menu (Array of FoodItem references)
 
 3.Admin Schema
+
 Model: Admin
 
 Fields:
@@ -90,6 +95,7 @@ banners (Array)
 promotedRestaurants (Array of Restaurant references)
 
 4.Food Item Schema
+
 Model: FoodItem
 
 Fields:
@@ -175,11 +181,13 @@ orderDate
 deliveryDate
 
 status
-
+```
 
 ### Backend Developer Guide
 backend developer should import models from /server/schema.js like this:
+
 const { User, FoodItem, Cart, Order, Admin, Restaurant } = require('./schema');
+
 Use these models in your API routes without redefining schemas.
 
 ### Security Notes
