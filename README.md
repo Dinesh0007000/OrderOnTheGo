@@ -35,7 +35,7 @@ cd OrderOnTheGo
 ### 2. Install Dependencies
 npm install
 ### 3. Create .env file in root folder:
-MONGO_URI=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+MONGO_URI=mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 
 ### MongoDB Database Setup
 The MongoDB connection is handled inside /server/index.js using Mongoose.
