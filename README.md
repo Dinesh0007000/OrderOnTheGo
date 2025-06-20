@@ -134,7 +134,7 @@ menu (Array of Product references)
 ### Backend Developer Guide
 Import Models in Backend Files:
 
-const { User, Product, Order, Cart, Admin, Restaurant } = require('./schema');
+const { User, Item, Cart, Order, Admin, Restaurant } = require('./schema');
 
 🔒 Security Notes
 .env file is in .gitignore — MongoDB credentials will not be pushed to GitHub.
