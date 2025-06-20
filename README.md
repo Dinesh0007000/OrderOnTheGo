@@ -83,7 +83,6 @@ attributes
 menu (Array of FoodItem references)
 
 3.Admin Schema
-
 Model: Admin
 
 Fields:
@@ -95,7 +94,6 @@ banners (Array)
 promotedRestaurants (Array of Restaurant references)
 
 4.Food Item Schema
-
 Model: FoodItem
 
 Fields:
