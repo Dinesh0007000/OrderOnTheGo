@@ -139,3 +139,4 @@ const { User, Product, Order, Cart, Admin, Restaurant } = require('./schema');
 .env file is in .gitignore — MongoDB credentials will not be pushed to GitHub.
 
 User passwords must be hashed before saving (to be implemented in backend).
+Rewrite this Readme.md fiel after completion of tasks ( As mongodb credentials are mentioned and only the database setup is shown)
