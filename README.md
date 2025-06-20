@@ -3,8 +3,9 @@
 Welcome to **OrderOnTheGo**, a full-stack food ordering platform connecting users with restaurants and their menus. This project is developed as a team collaboration.
 
 ---
-## Project Structure
+## 📂 Project Structure
 
+```plaintext
 /OrderOnTheGo
 │
 ├── server/                  # Backend & DB logic
