@@ -1,6 +1,6 @@
 #  OrderOnTheGo — Food Ordering System
 
-Welcome to **OrderOnTheGo**, a full-stack food ordering platform connecting users with restaurants and their menus. This project is developed as a team collaboration, where the database and backend are set up to follow professional standards using MongoDB Atlas and Node.js.
+Welcome to **OrderOnTheGo**, a full-stack food ordering platform connecting users with restaurants and their menus. This project is developed as a team collaboration.
 
 ---
 
