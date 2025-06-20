@@ -1,16 +1,17 @@
-#  OrderOnTheGo — Food Ordering System
+# OrderOnTheGo — Food Ordering System
 
-Welcome to **OrderOnTheGo**, a full-stack food ordering platform connecting users with restaurants and their menus. This project is developed as a team collaboration.
+Welcome to **OrderOnTheGo**, a full-stack food ordering platform connecting users with restaurants and their menus. This repository contains only the **Database setup and schema definitions** prepared using MongoDB Atlas and Mongoose. The backend team can build API routes on top of this.
 
 ---
-## 📂 Project Structure
+
+## Project Structure
 
 ```plaintext
 /OrderOnTheGo
 │
 ├── server/                  # Backend & DB logic
 │   ├── index.js             # MongoDB connection + server entry point
-│   ├── schema.js            # All Mongoose models (User, Product, etc.)
+│   ├── schema.js            # All Mongoose models (User, Item, Cart, Order, Admin, Restaurant)
 │
 ├── .env                     # MongoDB URI (kept secret in this file)
 ├── .gitignore               # Ignores .env, node_modules, etc.
@@ -18,126 +19,128 @@ Welcome to **OrderOnTheGo**, a full-stack food ordering platform connecting user
 └── README.md                # This documentation
 ```
 
-##  Getting Started
+## Getting Started
+### Prerequisites
+Node.js (v18 or above)
+Git
 
-###  Prerequisites
-
-- Node.js (v18 or above)
-- Git
-
----
-
-##  Setup Instructions (For All Team Members)
-
-### 1. Clone the Repository
-git clone https://github.com/your-username/OrderOnTheGo.git
+### Setup Instructions (For All Team Members)
+1.Clone the Repository
+git clone https://github.com/Dinesh0007000/OrderOnTheGo.git
 cd OrderOnTheGo
-### 2. Install Dependencies
+2. Install Dependencies
 npm install
-### 3. Create .env file in root folder:
-MONGO_URI=mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+3. Create .env File in Root Folder:
+MONGO_URI=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 
 ### MongoDB Database Setup
-The MongoDB connection is handled inside /server/index.js using Mongoose.
+The MongoDB connection is established inside /server/index.js using Mongoose.
 
-To test the connection:
+To verify the database connection:
 
 node server/index.js
+Expected Output:
 
-You should see:
-
-✅ MongoDB Connected Successfully!
+MongoDB Connected Successfully!
 
 ### Database Schema Overview
-All schemas are defined in /server/schema.js based on the ER diagram.
+All database schemas are defined in /server/schema.js according to the ER diagrams provided.
 
-#### 1. User Schema
-Schema: userSchema
-
+1.User Schema
 Model: User
 
 Fields:
-
 username
-
 email
-
 password
-
-#### 2. Product Schema
-Schema: productSchema
-
-Model: Product
-
-Fields:
-
-productName
-
-description
-
-price
-
-category
-
-restaurantId (Ref: Restaurant)
-
-#### 3. Order Schema
-Schema: orderSchema
-
-Model: Order
-
-Fields:
-
-userId (Ref: User)
-
-products (Array of productId, quantity, size)
-
-orderDate
-
-#### 4. Cart Schema
-Schema: cartSchema
-
-Model: Cart
-
-Fields:
-
-userId (Ref: User)
-
-products (Array of productId, quantity, size)
-
-#### 5. Admin Schema
-Schema: adminSchema
-
-Model: Admin
-
-Fields:
-
-categories (Array)
-
-promotedRestaurants (Ref: Restaurant)
-
-#### 6. Restaurant Schema
-Schema: restaurantSchema
-
+userType (customer / restaurantOwner / deliveryBoy)
+approval
+️
+2. Restaurant Schema
 Model: Restaurant
 
 Fields:
-
-name
-
+ownerId (Ref: User)
+title
 address
+mainImg
+attributes
+menu (Array of FoodItem references)
 
-contact
+3.Admin Schema
+Model: Admin
 
-menu (Array of Product references)
+Fields:
+categories (Array)
+banners (Array)
+promotedRestaurants (Array of Restaurant references)
+
+4.Food Item Schema
+Model: FoodItem
+
+Fields:
+title
+desc
+image
+menuType
+category
+restaurantId (Ref: Restaurant)
+price
+discount
+rating
+
+5.Cart Schema
+Model: Cart
+
+Fields:
+userId (Ref: User)
+restaurantId (Ref: Restaurant)
+restaurantName
+foodItemId (Ref: FoodItem)
+quantity
+foodItemName
+foodItemImg
+price
+discount
+
+6.Order Schema
+Model: Order
+
+Fields:
+userId (Ref: User)
+name
+email
+mobile
+address
+pincode
+restaurantId (Ref: Restaurant)
+restaurantName
+foodItemId (Ref: FoodItem)
+foodItemName
+foodItemImg
+quantity
+price
+discount
+paymentMethod
+orderDate
+deliveryDate
+status
 
 ### Backend Developer Guide
-Import Models in Backend Files:
+backend developer should import models from /server/schema.js like this:
+const { User, FoodItem, Cart, Order, Admin, Restaurant } = require('./schema');
+Use these models in your API routes without redefining schemas.
 
-const { User, Item, Cart, Order, Admin, Restaurant } = require('./schema');
+### Security Notes
+.env file is excluded via .gitignore — MongoDB credentials will not be pushed to GitHub.
 
-🔒 Security Notes
-.env file is in .gitignore — MongoDB credentials will not be pushed to GitHub.
+User passwords must be hashed in the backend before saving (to be implemented by the backend team).
 
-User passwords must be hashed before saving (to be implemented in backend).
-Rewrite this Readme.md fiel after completion of tasks ( As mongodb credentials are mentioned and only the database setup is shown)
+📌 Notes
+This repository contains only database setup.
+
+Backend API routes, controllers, and frontend integration are to be developed separately by the respective teams.
+
+Refer to this README for any database model-related clarification.
+
+Edit the README.md file after completion of respective tasks.
