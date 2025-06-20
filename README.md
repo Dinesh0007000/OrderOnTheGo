@@ -22,7 +22,6 @@ Welcome to **OrderOnTheGo**, a full-stack food ordering platform connecting user
 ###  Prerequisites
 
 - Node.js (v18 or above)
-- MongoDB Atlas account
 - Git
 
 ---
