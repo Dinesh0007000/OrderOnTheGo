@@ -1,65 +1,78 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    username: String,
-    email: String,
-    password: String
+    username: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    userType: { type: String, enum: ['customer', 'restaurantOwner', 'deliveryBoy'], required: true },
+    approval: { type: Boolean, default: false }
 });
-const User = mongoose.model('User', userSchema);
 
 const restaurantSchema = new mongoose.Schema({
-    name: String,
-    address: String,
-    contact: String,
-    menu: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Item' }]
+    ownerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    title: { type: String, required: true },
+    address: { type: String, required: true },
+    mainImg: { type: String },
+    attributes: [{ type: String }],
+    menu: [{ type: mongoose.Schema.Types.ObjectId, ref: 'FoodItem' }]
 });
-const Restaurant = mongoose.model('Restaurant', restaurantSchema);
 
 const adminSchema = new mongoose.Schema({
-    categories: [String],
+    categories: [{ type: String }],
+    banners: [{ type: String }],
     promotedRestaurants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Restaurant' }]
 });
-const Admin = mongoose.model('Admin', adminSchema);
 
-const itemSchema = new mongoose.Schema({
-    itemName: String,
-    description: String,
-    price: Number,
-    category: String,
-    restaurantId: { type: mongoose.Schema.Types.ObjectId, ref: 'Restaurant' }
+const foodItemSchema = new mongoose.Schema({
+    title: { type: String, required: true },
+    desc: { type: String },
+    image: { type: String },
+    menuType: { type: String },
+    category: { type: String },
+    restaurantId: { type: mongoose.Schema.Types.ObjectId, ref: 'Restaurant', required: true },
+    price: { type: Number, required: true },
+    discount: { type: Number, default: 0 },
+    rating: { type: Number, default: 0 }
 });
-const Item = mongoose.model('Item', itemSchema);
 
 const cartSchema = new mongoose.Schema({
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    items: [
-        {
-            itemId: { type: mongoose.Schema.Types.ObjectId, ref: 'Item' },
-            quantity: Number,
-            size: String
-        }
-    ]
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    restaurantId: { type: mongoose.Schema.Types.ObjectId, ref: 'Restaurant', required: true },
+    restaurantName: { type: String },
+    foodItemId: { type: mongoose.Schema.Types.ObjectId, ref: 'FoodItem', required: true },
+    quantity: { type: Number, required: true },
+    foodItemName: { type: String },
+    foodItemImg: { type: String },
+    price: { type: Number },
+    discount: { type: Number, default: 0 }
 });
-const Cart = mongoose.model('Cart', cartSchema);
 
 const orderSchema = new mongoose.Schema({
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    items: [
-        {
-            itemId: { type: mongoose.Schema.Types.ObjectId, ref: 'Item' },  
-            quantity: Number,
-            size: String
-        }
-    ],
-    orderDate: { type: Date, default: Date.now }
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    name: { type: String },
+    email: { type: String },
+    mobile: { type: String },
+    address: { type: String },
+    pincode: { type: String },
+    restaurantId: { type: mongoose.Schema.Types.ObjectId, ref: 'Restaurant' },
+    restaurantName: { type: String },
+    foodItemId: { type: mongoose.Schema.Types.ObjectId, ref: 'FoodItem' },
+    foodItemName: { type: String },
+    foodItemImg: { type: String },
+    quantity: { type: Number },
+    price: { type: Number },
+    discount: { type: Number, default: 0 },
+    paymentMethod: { type: String },
+    orderDate: { type: Date, default: Date.now },
+    deliveryDate: { type: Date },
+    status: { type: String, enum: ['Pending', 'Confirmed', 'Delivered'], default: 'Pending' }
 });
+
+const User = mongoose.model('User', userSchema);
+const Restaurant = mongoose.model('Restaurant', restaurantSchema);
+const Admin = mongoose.model('Admin', adminSchema);
+const FoodItem = mongoose.model('FoodItem', foodItemSchema);
+const Cart = mongoose.model('Cart', cartSchema);
 const Order = mongoose.model('Order', orderSchema);
 
-module.exports = {
-    User,
-    Restaurant,
-    Admin,
-    Item,   
-    Cart,
-    Order
-};
+module.exports = { User, Restaurant, Admin, FoodItem, Cart, Order };
