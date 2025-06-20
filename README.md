@@ -17,6 +17,7 @@ Welcome to **OrderOnTheGo**, a full-stack food ordering platform connecting user
 ├── package.json             # Project dependencies
 └── README.md                # This documentation
 
+```markdown
 ##  Getting Started
 
 ###  Prerequisites
