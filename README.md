@@ -193,7 +193,8 @@ Use these models in your API routes without redefining schemas.
 
 User passwords must be hashed in the backend before saving (to be implemented by the backend team).
 
-📌 Notes
+### Notes
+
 This repository contains only database setup.
 
 Backend API routes, controllers, and frontend integration are to be developed separately by the respective teams.
