@@ -1,111 +1,204 @@
-# OrderOnTheGo 🍔🚴‍♂️
+# OrderOnTheGo — Food Ordering System
 
-OrderOnTheGo is a full-stack food ordering platform where customers can browse restaurants, add items to their cart, place orders, and track them. Restaurant owners can list food items after approval by an admin. Admins can manage users, restaurants, and promotional content.
-
----
-
-## 🔧 Tech Stack
-
-- **Frontend:** React.js (if implemented)
-- **Backend:** Node.js, Express.js
-- **Database:** MongoDB with Mongoose ODM
-- **Authentication:** JWT (JSON Web Tokens), bcrypt
-- **API Testing:** Hoppscotch or Postman
+Welcome to **OrderOnTheGo**, a full-stack food ordering platform connecting users with restaurants and their menus. This repository contains only the **Database setup and schema definitions** prepared using MongoDB Atlas and Mongoose. The backend team can build API routes on top of this.
 
 ---
 
-## 📁 Folder Structure
+## Project Structure
 
-server/
-├── controllers/
-│ ├── userController.js
-│ ├── restaurantController.js
-│ ├── foodController.js
-│ ├── cartController.js
-│ └── orderController.js
-├── routes/
-│ ├── userRoutes.js
-│ ├── restaurantRoutes.js
-│ ├── foodRoutes.js
-│ ├── cartRoutes.js
-│ └── orderRoutes.js
-├── middleware/
-│ ├── authMiddleware.js
-│ └── roleMiddleware.js
-├── schema.js
-├── .env (excluded via .gitignore)
-├── .gitignore
-├── package.json
-└── server.js
+```plaintext
+/OrderOnTheGo
+│
+├── server/                  # Backend & DB logic
+│   ├── index.js             # MongoDB connection + server entry point
+│   ├── schema.js            # All Mongoose models (User, Item, Cart, Order, Admin, Restaurant)
+│
+├── .env                     # MongoDB URI (kept secret in this file)
+├── .gitignore               # Ignores .env, node_modules, etc.
+├── package.json             # Project dependencies
+└── README.md                # This documentation
+```
 
-yaml
-Copy
-Edit
+## Getting Started
+### Prerequisites
+Node.js (v18 or above)
+Git
 
----
-
-## 🚀 Features
-
-### 👤 User Flow
-- Register and login
-- Browse restaurants and food items
-- Add items to cart and place orders
-- View order history
-
-### 🍽️ Restaurant Flow
-- Register as a restaurant owner
-- Await admin approval
-- Add/edit food items once approved
-
-### 🛠️ Admin Flow
-- Login as admin
-- Approve restaurant owners
-- Manage users, food categories, banners, and promoted restaurants
-
----
-
-## 📦 Installation & Setup
-
-### 1. Clone the Repo
+### Setup Instructions (For All Team Members)
+```plaintext
+1.Clone the Repository
 git clone https://github.com/Dinesh0007000/OrderOnTheGo.git
-cd OrderOnTheGo/server
+cd OrderOnTheGo
 2. Install Dependencies
-bash
-Copy
-Edit
 npm install
-3. Create .env File
-env
-Copy
-Edit
-MONGO_URL=your_mongodb_connection_string
-JWT_SECRET=yourVerySecretKey123
-PORT=5000
-4. Start Server
-bash
-Copy
-Edit
-npm start
-# or use
-nodemon server.js
-🧪 API Testing with Hoppscotch
-Register User → POST /api/user/register
+3. Create .env File in Root Folder:
+mongodb+srv://<username>:<db_password>@orderonthego.ncdzmri.mongodb.net/?retryWrites=true&w=majority&appName=Orderonthego
+```
 
-Login User → POST /api/user/login
+### MongoDB Database Setup
+The MongoDB connection is established inside /server/index.js using Mongoose.
 
-Create Restaurant (Owner) → POST /api/restaurant/create (after approval)
+To verify the database connection:
 
-Add Food Item → POST /api/food/add
+node server/index.js
 
-Add to Cart → POST /api/cart/add
+Expected Output:
 
-Place Order → POST /api/order/create
+MongoDB Connected Successfully!
 
-Admin Approval → PATCH /api/admin/approve/:userId
+### Database Schema Overview
+All database schemas are defined in /server/schema.js according to the ER diagrams provided.
 
-⚠️ Important
-Don’t commit .env or node_modules to GitHub.
+```plaintext
+1.User Schema
+Model: User
 
-.gitignore should include:
-node_modules/
-.env
+Fields:
+
+username
+
+email
+
+password
+
+userType (customer / restaurantOwner / deliveryBoy)
+
+approval
+
+2.Restaurant Schema
+Model: Restaurant
+
+Fields:
+
+ownerId (Ref: User)
+
+title
+
+address
+
+mainImg
+
+attributes
+
+menu (Array of FoodItem references)
+
+3.Admin Schema
+Model: Admin
+
+Fields:
+
+categories (Array)
+
+banners (Array)
+
+promotedRestaurants (Array of Restaurant references)
+
+4.Food Item Schema
+Model: FoodItem
+
+Fields:
+
+title
+
+desc
+
+image
+
+menuType
+
+category
+
+restaurantId (Ref: Restaurant)
+
+price
+
+discount
+
+rating
+
+5.Cart Schema
+Model: Cart
+
+Fields:
+
+userId (Ref: User)
+
+restaurantId (Ref: Restaurant)
+
+restaurantName
+
+foodItemId (Ref: FoodItem)
+
+quantity
+
+foodItemName
+
+foodItemImg
+
+price
+
+discount
+
+6.Order Schema
+Model: Order
+
+Fields:
+
+userId (Ref: User)
+
+name
+
+email
+
+mobile
+
+address
+
+pincode
+
+restaurantId (Ref: Restaurant)
+
+restaurantName
+
+foodItemId (Ref: FoodItem)
+
+foodItemName
+
+foodItemImg
+
+quantity
+
+price
+
+discount
+
+paymentMethod
+
+orderDate
+
+deliveryDate
+
+status
+```
+
+### Backend Developer Guide
+backend developer should import models from /server/schema.js like this:
+
+const { User, FoodItem, Cart, Order, Admin, Restaurant } = require('./schema');
+
+Use these models in your API routes without redefining schemas.
+
+### Security Notes
+.env file is excluded via .gitignore — MongoDB credentials will not be pushed to GitHub.
+
+User passwords must be hashed in the backend before saving (to be implemented by the backend developer).
+
+### Notes
+
+This repository contains only database setup.
+
+Backend API routes, controllers, and frontend integration are to be developed separately by the respective developers.
+
+Refer to this README for any database model-related clarification.
+
+Edit the README.md file after completion of respective tasks.
