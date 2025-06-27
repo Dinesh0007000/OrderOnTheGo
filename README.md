@@ -1,204 +1,69 @@
-# OrderOnTheGo — Food Ordering System
+🍽️ SB Foods – React App
+This is a full-featured food ordering web application built with React.js. It supports multiple user types like Customers, Admins, and Restaurants, with dynamic restaurant listings, search functionality, and role-based routing.
 
-Welcome to **OrderOnTheGo**, a full-stack food ordering platform connecting users with restaurants and their menus. This repository contains only the **Database setup and schema definitions** prepared using MongoDB Atlas and Mongoose. The backend team can build API routes on top of this.
 
----
+✅ Prerequisites
+Node.js installed
 
-## Project Structure
+MongoDB running (if you're using the backend)
 
-```plaintext
-/OrderOnTheGo
-│
-├── server/                  # Backend & DB logic
-│   ├── index.js             # MongoDB connection + server entry point
-│   ├── schema.js            # All Mongoose models (User, Item, Cart, Order, Admin, Restaurant)
-│
-├── .env                     # MongoDB URI (kept secret in this file)
-├── .gitignore               # Ignores .env, node_modules, etc.
-├── package.json             # Project dependencies
-└── README.md                # This documentation
-```
+Backend server running at http://localhost:6001
 
-## Getting Started
-### Prerequisites
-Node.js (v18 or above)
-Git
+📦 Available Scripts
+In the project directory, run:
 
-### Setup Instructions (For All Team Members)
-```plaintext
-1.Clone the Repository
-git clone https://github.com/Dinesh0007000/OrderOnTheGo.git
-cd OrderOnTheGo
-2. Install Dependencies
 npm install
-3. Create .env File in Root Folder:
-mongodb+srv://<username>:<db_password>@orderonthego.ncdzmri.mongodb.net/?retryWrites=true&w=majority&appName=Orderonthego
-```
+Installs all the required dependencies.
 
-### MongoDB Database Setup
-The MongoDB connection is established inside /server/index.js using Mongoose.
+npm start
+Runs the frontend app in development mode.
+Open http://localhost:3000 in your browser.
 
-To verify the database connection:
+You’ll see live reloads on changes, and any lint errors will appear in the console.
 
-node server/index.js
+👤 User Roles
+Customer: Can browse restaurants, add items to cart, and place orders.
 
-Expected Output:
+Admin: Can view users, orders, and manage restaurants.
 
-MongoDB Connected Successfully!
+Restaurant: Can manage its own menu and handle orders.
 
-### Database Schema Overview
-All database schemas are defined in /server/schema.js according to the ER diagrams provided.
+🔍 Search Feature
+The Navbar has a search bar that filters restaurants by name in the Home Page under the All Restaurants section.
 
-```plaintext
-1.User Schema
-Model: User
+Typing a name (like "burger") and clicking the search icon or pressing Enter filters the visible restaurants.
 
-Fields:
+🍱 Categories
+Clicking a category like "Biryani", "Pizza", etc., will show a toast message guiding the user to view items under that cuisine in the restaurants section.
 
-username
+🛠️ Project Structure
+src/
+├── components/         // Reusable UI components
+├── context/            // GeneralContext for app-wide state
+├── pages/              // Main pages like Home, Profile, Admin
+├── styles/             // All CSS files
+├── App.js              // Main app routing
+└── index.js            // React entry point
 
-email
+👩‍💻 Developer Notes
 
-password
+Admin Registration via cURL
 
-userType (customer / restaurantOwner / deliveryBoy)
+curl -X POST http://localhost:6001/register \
+-H "Content-Type: application/json" \
+-d '{
+  "username": "adminuser",
+  "email": "admin@example.com",
+  "password": "admin123",
+  "usertype": "admin"
+}'
 
-approval
+📚 Learn More
+React Docs
 
-2.Restaurant Schema
-Model: Restaurant
+React Router
 
-Fields:
+Toastify
 
-ownerId (Ref: User)
+Create React App Docs
 
-title
-
-address
-
-mainImg
-
-attributes
-
-menu (Array of FoodItem references)
-
-3.Admin Schema
-Model: Admin
-
-Fields:
-
-categories (Array)
-
-banners (Array)
-
-promotedRestaurants (Array of Restaurant references)
-
-4.Food Item Schema
-Model: FoodItem
-
-Fields:
-
-title
-
-desc
-
-image
-
-menuType
-
-category
-
-restaurantId (Ref: Restaurant)
-
-price
-
-discount
-
-rating
-
-5.Cart Schema
-Model: Cart
-
-Fields:
-
-userId (Ref: User)
-
-restaurantId (Ref: Restaurant)
-
-restaurantName
-
-foodItemId (Ref: FoodItem)
-
-quantity
-
-foodItemName
-
-foodItemImg
-
-price
-
-discount
-
-6.Order Schema
-Model: Order
-
-Fields:
-
-userId (Ref: User)
-
-name
-
-email
-
-mobile
-
-address
-
-pincode
-
-restaurantId (Ref: Restaurant)
-
-restaurantName
-
-foodItemId (Ref: FoodItem)
-
-foodItemName
-
-foodItemImg
-
-quantity
-
-price
-
-discount
-
-paymentMethod
-
-orderDate
-
-deliveryDate
-
-status
-```
-
-### Backend Developer Guide
-backend developer should import models from /server/schema.js like this:
-
-const { User, FoodItem, Cart, Order, Admin, Restaurant } = require('./schema');
-
-Use these models in your API routes without redefining schemas.
-
-### Security Notes
-.env file is excluded via .gitignore — MongoDB credentials will not be pushed to GitHub.
-
-User passwords must be hashed in the backend before saving (to be implemented by the backend developer).
-
-### Notes
-
-This repository contains only database setup.
-
-Backend API routes, controllers, and frontend integration are to be developed separately by the respective developers.
-
-Refer to this README for any database model-related clarification.
-
-Edit the README.md file after completion of respective tasks.
