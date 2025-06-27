@@ -199,3 +199,17 @@
 .theme-update-btn:active {
     transform: scale(0.98);
 }
+
+.theme-delete-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.theme-delete-btn:hover {
+    background-color: #c0392b;
+}
