@@ -25,7 +25,6 @@ function Footer() {
           <h4>Quick Links</h4>
           <ul>
             <li><ProtectedLink to="/" className="footer-link">Home</ProtectedLink></li>
-            <li><ProtectedLink to="/all-restaurants" className="footer-link">Restaurants</ProtectedLink></li>
             <li><ProtectedLink to="/profile" className="footer-link">Profile</ProtectedLink></li>
             <li><ProtectedLink to="/cart" className="footer-link">Cart</ProtectedLink></li>
           </ul>
