@@ -22,10 +22,14 @@ const RestaurantMenu = () => {
                 setRestaurant(restRes.data);
 
                 const categoriesRes = await axios.get('http://localhost:6001/fetch-categories');
-                setAvailableCategories(categoriesRes.data);
-
                 const itemsRes = await axios.get('http://localhost:6001/fetch-items');
                 setItems(itemsRes.data);
+
+                const allItemCategories = itemsRes.data.map(item => item.menuCategory);
+                const allCategories = [...categoriesRes.data, ...allItemCategories];
+                const uniqueCategories = [...new Set(allCategories)];
+
+                setAvailableCategories(uniqueCategories);
                 setVisibleItems(itemsRes.data);
             } catch (err) {
                 console.error("Error loading restaurant data:", err);
@@ -85,6 +89,23 @@ const RestaurantMenu = () => {
             sortedItems.sort((a, b) => b.rating - a.rating);
         }
         setVisibleItems(sortedItems);
+    };
+
+    const handleDelete = async (productId) => {
+        const confirm = window.confirm("Are you sure you want to delete this product?");
+        if (!confirm) return;
+
+        try {
+            await axios.delete(`http://localhost:6001/delete-product/${productId}`);
+            alert("Product deleted successfully");
+
+            const updatedItems = items.filter(item => item._id !== productId);
+            setItems(updatedItems);
+            setVisibleItems(updatedItems);
+        } catch (error) {
+            console.error("Delete failed:", error);
+            alert("Failed to delete product. Try again later.");
+        }
     };
 
     if (!restaurant) {
@@ -179,12 +200,20 @@ const RestaurantMenu = () => {
                                             <h6>{item.title}</h6>
                                             <p>{item.description.slice(0, 25)}...</p>
                                             <h6>&#8377; {item.price}</h6>
-                                            <button
-                                                className="theme-update-btn"
-                                                onClick={() => navigate(`/update-product/${item._id}`)}
-                                            >
-                                                Update
-                                            </button>
+                                            <div style={{ display: 'flex', gap: '10px' }}>
+                                                <button
+                                                    className="theme-update-btn"
+                                                    onClick={() => navigate(`/update-product/${item._id}`)}
+                                                >
+                                                    Update
+                                                </button>
+                                                <button
+                                                    className="theme-delete-btn"
+                                                    onClick={() => handleDelete(item._id)}
+                                                >
+                                                    Delete
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
