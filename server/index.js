@@ -15,7 +15,7 @@ app.use(cors());
 
 const PORT = 6001;
 
-mongoose.connect('mongodb+srv://orderUser:orderPass123@cluster0.mko6fei.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
+mongoose.connect('USE MONGO DB URL', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
