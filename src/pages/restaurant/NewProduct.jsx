@@ -18,17 +18,24 @@ const NewProduct = () => {
 
   const [AvailableCategories, setAvailableCategories] = useState([]);
   const [restaurant, setRestaurant] = useState(null);
+  const [items, setItems] = useState([]);
   const [errors, setErrors] = useState({});
   const [imagePreview, setImagePreview] = useState('');
 
   useEffect(() => {
-    fetchCategories();
+    fetchCategoriesAndItems();
     fetchRestaurant();
   }, []);
 
-  const fetchCategories = async () => {
-    const response = await axios.get('http://localhost:6001/fetch-categories');
-    setAvailableCategories(response.data);
+  const fetchCategoriesAndItems = async () => {
+    const categoriesRes = await axios.get('http://localhost:6001/fetch-categories');
+    const itemsRes = await axios.get('http://localhost:6001/fetch-items');
+    setItems(itemsRes.data);
+
+    const itemCategories = itemsRes.data.map(item => item.menuCategory);
+    const allCategories = [...categoriesRes.data, ...itemCategories];
+    const uniqueCategories = [...new Set(allCategories)];
+    setAvailableCategories(uniqueCategories);
   };
 
   const fetchRestaurant = async () => {
@@ -51,6 +58,23 @@ const NewProduct = () => {
 
   const handleNewProduct = async () => {
     if (!validateForm()) return;
+
+    const selectedCategory = productMenuCategory === 'new category' ? productNewCategory : productMenuCategory;
+
+    const isDuplicate = items.some(item =>
+      item.title?.toLowerCase().trim() === productName.toLowerCase().trim() &&
+      item.description?.toLowerCase().trim() === productDescription.toLowerCase().trim() &&
+      parseFloat(item.price) === parseFloat(productPrice) &&
+      item.category === productCategory &&
+      item.menuCategory === selectedCategory &&
+      item.itemImg === productMainImg
+    );
+
+    if (isDuplicate) {
+      alert("This exact product already exists in your menu.");
+      return;
+    }
+
     if (!restaurant?._id) {
       alert("Restaurant not loaded yet. Please wait.");
       return;
@@ -62,13 +86,13 @@ const NewProduct = () => {
       productDescription,
       productMainImg,
       productCategory,
-      productMenuCategory,
+      productMenuCategory: selectedCategory,
       productNewCategory,
       productPrice,
       productDiscount
     });
 
-    alert("Product added");
+    alert("Product added successfully");
     navigate('/restaurant-menu');
   };
 
