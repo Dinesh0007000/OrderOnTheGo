@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import bcrypt from 'bcrypt';
-import { Admin, Cart, FoodItem, Orders, Restaurant, User } from './schema.js'
+import { Admin, Cart, FoodItem, Orders, Restaurant, User } from './Schema.js'
 
 
 const app = express();
@@ -411,6 +411,23 @@ mongoose.connect('mongodb+srv://orderUser:orderPass123@cluster0.mko6fei.mongodb.
         }
     })
 
+
+    app.delete('/delete-product/:id', async (req, res) => {
+        try {
+            const productId = req.params.id;
+            const product = await FoodItem.findById(productId);
+
+            if (!product) {
+                return res.status(404).json({ message: 'Product not found' });
+            }
+
+            await FoodItem.deleteOne({ _id: productId });
+            res.json({ message: 'Product deleted successfully' });
+        } catch (err) {
+            console.error('Error in deleting product:', err);
+            res.status(500).json({ message: 'Error occurred while deleting' });
+        }
+    });
 
 
     app.listen(PORT, () => {
