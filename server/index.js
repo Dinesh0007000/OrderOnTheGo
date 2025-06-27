@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import bcrypt from 'bcrypt';
-import { Admin, Cart, FoodItem, Orders, Restaurant, User } from './Schema.js'
+import { Admin, Cart, FoodItem, Orders, Restaurant, User } from './schema.js'
 
 
 const app = express();
