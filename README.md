@@ -3,7 +3,7 @@ This is a full-featured food ordering web application built with React.js. It su
 
 
 ✅ Prerequisites
-Node.js installed
+Node.js installed.
 
 MongoDB running (if you're using the backend)
 
