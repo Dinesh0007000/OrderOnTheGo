@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axiosInstance from '../../components/AxiosInstance';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,11 +18,11 @@ const RestaurantMenu = () => {
     useEffect(() => {
         const init = async () => {
             try {
-                const restRes = await axios.get(`http://localhost:6001/fetch-restaurant-details/${userId}`);
+                const restRes = await axiosInstance.get(`/fetch-restaurant-details/${userId}`);
                 setRestaurant(restRes.data);
 
-                const categoriesRes = await axios.get('http://localhost:6001/fetch-categories');
-                const itemsRes = await axios.get('http://localhost:6001/fetch-items');
+                const categoriesRes = await axiosInstance.get('/fetch-categories');
+                const itemsRes = await axiosInstance.get('/fetch-items');
                 setItems(itemsRes.data);
 
                 const allItemCategories = itemsRes.data.map(item => item.menuCategory);
@@ -96,7 +96,7 @@ const RestaurantMenu = () => {
         if (!confirm) return;
 
         try {
-            await axios.delete(`http://localhost:6001/delete-product/${productId}`);
+            await axiosInstance.delete(`/delete-product/${productId}`);
             alert("Product deleted successfully");
 
             const updatedItems = items.filter(item => item._id !== productId);
