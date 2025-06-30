@@ -3,7 +3,7 @@ import '../styles/Home.css';
 import Footer from '../components/Footer';
 import { useNavigate } from 'react-router-dom';
 import PopularRestaurants from '../components/PopularRestaurants';
-import axios from 'axios';
+import axiosInstance from '../components/AxiosInstance';
 import { GeneralContext } from '../context/GeneralContext';
 import { toast } from 'react-toastify';
 
@@ -21,7 +21,7 @@ const Home = () => {
 
   const fetchRestaurants = async () => {
     try {
-      const response = await axios.get('http://localhost:6001/fetch-restaurants');
+      const response = await axiosInstance.get('/fetch-restaurants');
       setRestaurants(response.data);
     } catch (error) {
       console.error("Failed to fetch restaurants", error);
@@ -30,7 +30,7 @@ const Home = () => {
 
   const fetchItems = async () => {
     try {
-      const response = await axios.get('http://localhost:6001/fetch-items');
+      const response = await axiosInstance.get('/fetch-items');
       setItems(response.data);
     } catch (error) {
       console.error("Failed to fetch items", error);
