@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import '../../styles/RestaurantHome.css';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axiosInstance from '../../components/AxiosInstance';
 import { FaBoxOpen, FaClipboardList, FaPlusCircle } from 'react-icons/fa';
 
 const RestaurantHome = () => {
@@ -16,7 +16,7 @@ const RestaurantHome = () => {
   }, [])
 
   const fetchUserData = async () => {
-    await axios.get(`http://localhost:6001/fetch-user-details/${userId}`).then(
+    await axiosInstance.get(`/fetch-user-details/${userId}`).then(
       (response) => {
         setRestaurant(response.data);
         console.log(response.data._id);
@@ -35,7 +35,7 @@ const RestaurantHome = () => {
 
 
   const fetchRestaurantData = async () => {
-    await axios.get(`http://localhost:6001/fetch-restaurant-details/${userId}`).then(
+    await axiosInstance.get(`/fetch-restaurant-details/${userId}`).then(
       (response) => {
         setRestaurantData(response.data);
         console.log(response.data)
@@ -51,7 +51,7 @@ const RestaurantHome = () => {
   }, [restaurantData])
 
   const fetchItems = async () => {
-    await axios.get('http://localhost:6001/fetch-items').then(
+    await axiosInstance.get('/fetch-items').then(
       (response) => {
         setItemsCount(response.data.filter(item => item.restaurantId === restaurantData._id).length);
 
@@ -60,7 +60,7 @@ const RestaurantHome = () => {
   }
 
   const fetchOrders = async () => {
-    await axios.get('http://localhost:6001/fetch-orders').then(
+    await axiosInstance.get('/fetch-orders').then(
       (response) => {
         setOrdersCount(response.data.filter(item => item.restaurantId === restaurantData._id).length);
       }
