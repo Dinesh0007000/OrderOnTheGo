@@ -1,13 +1,12 @@
 // GeneralContext.js
 import React, { createContext, useEffect, useState } from 'react';
-import axios from "axios";
+import axiosInstance from '../components/AxiosInstance';
 import { useNavigate } from "react-router-dom";
 
 export const GeneralContext = createContext();
 
 const GeneralContextProvider = ({ children }) => {
   const navigate = useNavigate();
-
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -35,7 +34,7 @@ const GeneralContextProvider = ({ children }) => {
   const fetchCartCount = async () => {
     const userId = localStorage.getItem('userId');
     if (userId) {
-      const response = await axios.get('http://localhost:6001/fetch-cart');
+      const response = await axiosInstance.get('/fetch-cart');
       setCartCount(response.data.filter(item => item.userId === userId).length);
     }
   };
@@ -51,7 +50,7 @@ const GeneralContextProvider = ({ children }) => {
 
     try {
       const loginInputs = { email, password };
-      const res = await axios.post('http://localhost:6001/login', loginInputs);
+      const res = await axiosInstance.post('/login', loginInputs);
 
       localStorage.setItem('userId', res.data._id);
       localStorage.setItem('userType', res.data.usertype);
@@ -90,7 +89,7 @@ const GeneralContextProvider = ({ children }) => {
     const inputs = { username, email, password, usertype, restaurantAddress, restaurantImage };
 
     try {
-      const res = await axios.post('http://localhost:6001/register', inputs);
+      const res = await axiosInstance.post('/register', inputs);
       return true;
     } catch (err) {
       console.error("Registration failed:", err);
