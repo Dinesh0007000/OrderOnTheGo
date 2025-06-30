@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import '../../styles/Profile.css'
 import { AiFillStar } from 'react-icons/ai'
 import { GeneralContext } from '../../context/GeneralContext'
-import axios from 'axios'
+import axiosInstance from '../../components/AxiosInstance';
 
 const Profile = () => {
 
@@ -19,7 +19,7 @@ const Profile = () => {
   }, [])
 
   const fetchOrders = async () => {
-    await axios.get('http://localhost:6001/fetch-orders').then(
+    await axiosInstance.get('/fetch-orders').then(
       (response) => {
         setOrders(response.data.filter(order => order.userId === userId).reverse());
       }
@@ -27,7 +27,7 @@ const Profile = () => {
   }
 
   const cancelOrder = async (id) => {
-    await axios.put('http://localhost:6001/cancel-order', { id }).then(
+    await axiosInstance.put('/cancel-order', { id }).then(
       (response) => {
         alert('order cancelled!!');
         fetchOrders();
