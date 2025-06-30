@@ -4,7 +4,7 @@ import { FcSearch } from 'react-icons/fc'
 import '../styles/Navbar.css'
 import { useNavigate } from 'react-router-dom'
 import { GeneralContext } from '../context/GeneralContext'
-import axios from 'axios'
+import axiosInstance from './AxiosInstance';
 import { ImCancelCircle } from 'react-icons/im'
 
 const Navbar = () => {
@@ -28,7 +28,7 @@ const Navbar = () => {
 
   const fetchData = async () => {
 
-    await axios.get('http://localhost:6001/fetch-categories').then(
+    await axiosInstance.get('/fetch-categories').then(
       (response) => {
         setCategories(response.data);
       }
