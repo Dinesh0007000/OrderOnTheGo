@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axiosInstance from '../../components/AxiosInstance';
 import '../../styles/Admin.css';
 
 const Admin = () => {
@@ -18,25 +18,25 @@ const Admin = () => {
   }, []);
 
   const fetchUsers = async () => {
-    await axios.get('http://localhost:6001/fetch-users').then(
+    await axiosInstance.get('/fetch-users').then(
       (response) => setUsers(response.data)
     );
   };
 
   const fetchRestaurants = async () => {
-    await axios.get('http://localhost:6001/fetch-restaurants').then(
+    await axiosInstance.get('/fetch-restaurants').then(
       (response) => setRestaurants(response.data)
     );
   };
 
   const fetchOrders = async () => {
-    await axios.get('http://localhost:6001/fetch-orders').then(
+    await axiosInstance.get('/fetch-orders').then(
       (response) => setOrdersCount(response.data.length)
     );
   };
 
   const approveUser = async (id) => {
-    await axios.post('http://localhost:6001/approve-user', { id }).then(
+    await axiosInstance.post('/approve-user', { id }).then(
       (response) => {
         alert('Restaurant approved!');
         fetchUsers();
@@ -45,7 +45,7 @@ const Admin = () => {
   };
 
   const rejectUser = async (id) => {
-    await axios.post('http://localhost:6001/reject-user', { id }).then(
+    await axiosInstance.post('/reject-user', { id }).then(
       (response) => {
         alert('Restaurant Rejected!');
         fetchUsers();
@@ -63,13 +63,13 @@ const Admin = () => {
   };
 
   const handlePromoteUpdate = async () => {
-    await axios.post('http://localhost:6001/update-promote-list', { promoteList }).then(
+    await axiosInstance.post('/update-promote-list', { promoteList }).then(
       (response) => alert('Promote list updated!!')
     );
   };
 
   const fetchPromotions = async () => {
-    await axios.get('http://localhost:6001/fetch-promoted-list').then(
+    await axiosInstance.get('/fetch-promoted-list').then(
       (response) => setPromoteList(response.data)
     );
   };
