@@ -57,8 +57,8 @@ const axiosInstance = axios.create({
 Only needed if you want to test it locally.
 
 1. Clone the Repo
-git clone [https://github.com/your-username/order-on-the-go.git](https://github.com/Dinesh0007000/OrderOnTheGo)
-cd order-on-the-go
+git clone https://github.com/Dinesh0007000/OrderOnTheGo
+cd OrderOnTheGo
 
 2. Backend Setup
 cd server
