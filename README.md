@@ -54,6 +54,7 @@ const axiosInstance = axios.create({
 });
 ```
 🛠️ Run Locally (Optional)
+```
 Only needed if you want to test it locally.
 
 1. Clone the Repo
@@ -69,8 +70,11 @@ npm run dev
 cd ../client
 npm install
 npm start
+```
 
 🧪 Test Admin Access (If Needed)
+```
 Email: admin@order.com
 Password: admin123
 Admin panel includes restaurant approvals, order views, promotions, etc.
+```
