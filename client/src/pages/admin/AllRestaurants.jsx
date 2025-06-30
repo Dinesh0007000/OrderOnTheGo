@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import '../../styles/Restaurants.css'
-import axios from 'axios';
+import axiosInstance from '../../components/AxiosInstance';
 
 const AllRestaurants = () => {
 
@@ -11,7 +11,7 @@ const AllRestaurants = () => {
   }, [])
 
   const fetchRestaurants = async () => {
-    await axios.get('http://localhost:6001/fetch-restaurants').then(
+    await axiosInstance.get('/fetch-restaurants').then(
       (response) => {
         setRestaurants(response.data);
       }
