@@ -7,7 +7,7 @@ A MERN-based food ordering web app with dedicated roles for users, restaurant ow
 ## 🔗 Live Demo
 
 - **Frontend**: [https://orderonthego-client-hzj0.onrender.com]([https://orderonthego-client-hzj0.onrender.com)](https://orderonthego-client-pcbh.onrender.com)
-- **Backend**: [https://your-backend-url.onrender.com](https://orderonthego.onrender.com/))]
+- **Backend**: [https://your-backend-url.onrender.com]([https://your-backend-url.onrender.com](https://orderonthego.onrender.com/)) 
 
 ---
 
