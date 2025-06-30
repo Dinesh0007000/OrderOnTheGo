@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '../styles/PopularRestaurants.css';
-import axios from 'axios';
+import axiosInstance from './AxiosInstance';
 
 const PopularRestaurants = () => {
   const [promotedRestaurants, setPromotedRestaurants] = useState([]);
@@ -17,10 +17,10 @@ const PopularRestaurants = () => {
   const fetchPromotedRestaurants = async () => {
     try {
       setLoading(true);
-      const promoteListResponse = await axios.get('http://localhost:6001/fetch-promoted-list');
+      const promoteListResponse = await axiosInstance.get('/fetch-promoted-list');
       const promoteList = promoteListResponse.data;
 
-      const restaurantsResponse = await axios.get('http://localhost:6001/fetch-restaurants');
+      const restaurantsResponse = await axiosInstance.get('/fetch-restaurants');
       const allRestaurants = restaurantsResponse.data;
 
       const promoted = allRestaurants.filter((restaurant) => promoteList.includes(restaurant._id));
