@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import '../../styles/AllUsers.css'
-import axios from 'axios';
+import axiosInstance from '../../components/AxiosInstance';
 
 const AllUsers = () => {
 
   const [users, setUsers] = useState([]);
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchUsers();
   }, [])
 
-  const fetchUsers = async() =>{
-    await axios.get('http://localhost:6001/fetch-users').then(
-      (response)=>{
+  const fetchUsers = async () => {
+    await axiosInstance.get('/fetch-users').then(
+      (response) => {
         setUsers(response.data);
-        
+
       }
     )
   }
@@ -25,8 +25,8 @@ const AllUsers = () => {
 
       <div className="user-cards">
 
-        {users.filter(user=> user.usertype !== 'admin').map((user)=>{
-          return(
+        {users.filter(user => user.usertype !== 'admin').map((user) => {
+          return (
             <div className="user-card">
               <span>
                 <h5>User Id </h5>
@@ -47,7 +47,7 @@ const AllUsers = () => {
             </div>
           )
         })}
-        
+
 
       </div>
 
