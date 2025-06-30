@@ -74,7 +74,7 @@ npm start
 
 🧪 Test Admin Access (If Needed)
 ```
-Email: admin@order.com
+Email: admin@example.com
 Password: admin123
 Admin panel includes restaurant approvals, order views, promotions, etc.
 ```
