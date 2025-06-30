@@ -6,22 +6,18 @@ import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import { Admin, Cart, FoodItem, Orders, Restaurant, User } from './Schema.js';
 
-// Load environment variables from .env file
 dotenv.config();
 
 const app = express();
 
-// Middleware
 app.use(express.json());
 app.use(bodyParser.json({ limit: '30mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
 app.use(cors());
 
-// Use environment variables
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 
-// MongoDB connection
 mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
