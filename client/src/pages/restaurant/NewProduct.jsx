@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../../styles/NewProducts.css';
-import axios from 'axios';
+import axiosInstance from '../../components/AxiosInstance';
 import { useNavigate } from 'react-router-dom';
 
 const NewProduct = () => {
@@ -28,8 +28,8 @@ const NewProduct = () => {
   }, []);
 
   const fetchCategoriesAndItems = async () => {
-    const categoriesRes = await axios.get('http://localhost:6001/fetch-categories');
-    const itemsRes = await axios.get('http://localhost:6001/fetch-items');
+    const categoriesRes = await axiosInstance.get('/fetch-categories');
+    const itemsRes = await axiosInstance.get('/fetch-items');
     setItems(itemsRes.data);
 
     const itemCategories = itemsRes.data.map(item => item.menuCategory);
@@ -39,7 +39,7 @@ const NewProduct = () => {
   };
 
   const fetchRestaurant = async () => {
-    const response = await axios.get(`http://localhost:6001/fetch-restaurant-details/${userId}`);
+    const response = await axiosInstance.get(`/fetch-restaurant-details/${userId}`);
     setRestaurant(response.data);
   };
 
@@ -80,7 +80,7 @@ const NewProduct = () => {
       return;
     }
 
-    await axios.post('http://localhost:6001/add-new-product', {
+    await axiosInstance.post('/add-new-product', {
       restaurantId: restaurant._id,
       productName,
       productDescription,
