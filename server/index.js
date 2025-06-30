@@ -1,24 +1,32 @@
-import express from 'express'
+import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
-import { Admin, Cart, FoodItem, Orders, Restaurant, User } from './Schema.js'
+import { Admin, Cart, FoodItem, Orders, Restaurant, User } from './Schema.js';
 
+// Load environment variables from .env file
+dotenv.config();
 
 const app = express();
 
+// Middleware
 app.use(express.json());
-app.use(bodyParser.json({ limit: "30mb", extended: true }))
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use(bodyParser.json({ limit: '30mb', extended: true }));
+app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
 app.use(cors());
 
-const PORT = 6001;
+// Use environment variables
+const PORT = process.env.PORT || 5000;
+const MONGO_URI = process.env.MONGO_URI;
 
-mongoose.connect('YOUR MONGO DB URL', {
+// MongoDB connection
+mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
+    console.log('✅ Connected to MongoDB');
 
     app.post('/register', async (req, res) => {
         const { username, email, usertype, password, restaurantAddress, restaurantImage } = req.body;
@@ -431,6 +439,8 @@ mongoose.connect('YOUR MONGO DB URL', {
 
 
     app.listen(PORT, () => {
-        console.log('running @ 6001');
-    })
-}).catch((e) => console.log(`Error in db connection ${e}`));
+        console.log(`✅ Server running on port ${PORT}`);
+    });
+}).catch((e) => {
+    console.error(`❌ Error connecting to MongoDB: ${e}`);
+});
