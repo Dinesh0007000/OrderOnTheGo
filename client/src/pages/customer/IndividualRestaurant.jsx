@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import '../../styles/IndividualRestaurant.css'
-import axios from 'axios';
+import axiosInstance from '../../components/AxiosInstance';
 import { useNavigate, useParams } from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContext';
 import { toast } from 'react-toastify';
@@ -23,7 +23,7 @@ const IndividualRestaurant = () => {
     }, [])
 
     const fetchRestaurants = async () => {
-        await axios.get(`http://localhost:6001/fetch-restaurant/${id}`).then(
+        await axiosInstance.get(`/fetch-restaurant/${id}`).then(
             (response) => {
                 setRestaurant(response.data);
             }
@@ -33,7 +33,7 @@ const IndividualRestaurant = () => {
     }
 
     const fetchCategories = async () => {
-        await axios.get('http://localhost:6001/fetch-categories').then(
+        await axiosInstance.get('/fetch-categories').then(
             (response) => {
                 setAvailableCategories(response.data);
             }
@@ -41,7 +41,7 @@ const IndividualRestaurant = () => {
     }
 
     const fetchItems = async () => {
-        await axios.get(`http://localhost:6001/fetch-items`).then(
+        await axiosInstance.get(`/fetch-items`).then(
             (response) => {
                 setItems(response.data);
                 setVisibleItems(response.data);
@@ -105,7 +105,7 @@ const IndividualRestaurant = () => {
             toast.error("Please enter a quantity greater than 0");
             return;
         }
-        await axios.post('http://localhost:6001/add-to-cart', { userId, foodItemId, foodItemName, restaurantId, foodItemImg, price, discount, quantity }).then(
+        await axiosInstance.post('/add-to-cart', { userId, foodItemId, foodItemName, restaurantId, foodItemImg, price, discount, quantity }).then(
             (response) => {
                 alert("product added to cart!!");
                 setCartItem('');
