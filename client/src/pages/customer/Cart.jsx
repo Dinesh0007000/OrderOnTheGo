@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import '../../styles/Cart.css';
-import axios from 'axios';
+import axiosInstance from '../../components/AxiosInstance';
 import { useNavigate } from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContext';
 
@@ -26,7 +26,7 @@ const Cart = () => {
   }, []);
 
   const fetchCart = async () => {
-    await axios.get('http://localhost:6001/fetch-cart').then((response) => {
+    await axiosInstance.get('http://localhost:6001/fetch-cart').then((response) => {
       const userCart = response.data.filter((item) => item.userId === userId);
       setCart(userCart);
       calculateTotal(userCart);
@@ -45,7 +45,7 @@ const Cart = () => {
   };
 
   const removeItem = async (id) => {
-    await axios.put('http://localhost:6001/remove-item', { id }).then(() => {
+    await axiosInstance.put('/remove-item', { id }).then(() => {
       fetchCart();
       fetchCartCount();
     });
@@ -53,8 +53,8 @@ const Cart = () => {
 
   const placeOrder = async () => {
     if (cart.length > 0) {
-      await axios
-        .post('http://localhost:6001/place-cart-order', {
+      await axiosInstance
+        .post('/place-cart-order', {
           userId,
           name,
           mobile,
