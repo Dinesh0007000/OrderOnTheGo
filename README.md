@@ -2,6 +2,8 @@
 
 A MERN-based food ordering web app with dedicated roles for users, restaurant owners, and admins. Features secure authentication, admin approvals, restaurant promotions, and a responsive UI.
 
+🎥 Watch the video walkthrough [here](https://drive.google.com/file/d/1WGywnqZHLDB0yGEhwzM_hzADJm0gt0AI/view?usp=drive_link).
+
 ---
 
 ## 🔗 Live Demo
